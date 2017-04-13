@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+</head>
+<body>
+
+	<div sec:authorize="isAuthenticated()">
+	<div sec:authorize="hasRole('ROLE_ADMIN')">"This one should be admin"</div>
+	<div sec:authorize="hasRole('ROLE_USER')">"This one should be user"</div>
+	</div>	
+
+	Roles:
+	<span sec:authentication="principal.authorities"></span>
+
+	<form name="l" th:action="@{/logout}" method="post">
+		<div th:if="${param.error}" class="alert alert-error">Invalid
+			username and password.</div>
+		<div th:if="${param.logout}" class="alert alert-success">You
+			have been logged out.</div>
+		<div class="form-actions">
+			<button type="submit" class="btn">Logout</button>
+		</div>
+	</form>
+
+
+</body>
+</html>
